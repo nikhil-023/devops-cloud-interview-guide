@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Hello from main
+=======
+hello from merge_conflict_branch
+>>>>>>> merge_conflict_test
