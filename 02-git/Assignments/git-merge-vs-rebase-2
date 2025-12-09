@@ -1,0 +1,54 @@
+#!/bin/bash
+# Git Rebase Testing Guide
+
+# 1. Create a test repository
+mkdir git-rebase-test
+cd git-rebase-test
+git init
+
+# 2. Create initial commits on main branch
+echo "main file v1" > main.txt
+git add main.txt
+git commit -m "Initial commit on main"
+
+echo "main file v2" > main.txt
+git add main.txt
+git commit -m "Second commit on main"
+
+# 3. Create and switch to feature branch
+git checkout -b feature
+echo "feature work" > feature.txt
+git add feature.txt
+git commit -m "Feature commit 1"
+
+echo "feature work v2" > feature.txt
+git add feature.txt
+git commit -m "Feature commit 2"
+
+# 4. Make more changes on main
+git checkout main
+echo "main file v3" > main.txt
+git add main.txt
+git commit -m "Third commit on main"
+
+# 5. Test rebase
+git checkout feature
+echo "=== Before rebase ==="
+git log --oneline
+
+echo "=== Performing rebase ==="
+git rebase main
+
+echo "=== After rebase ==="
+git log --oneline
+
+# 6. View differences
+echo "=== Commit history comparison ==="
+git log --graph --oneline --all
+
+# 7. Fast-forward merge back to main
+git checkout main
+git merge feature
+
+echo "=== Final state ==="
+git log --graph --oneline --all
