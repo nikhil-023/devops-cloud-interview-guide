@@ -94,7 +94,7 @@ If all else fails:
 - Mount it and edit `~/.ssh/authorized_keys` or repair config
 - Reattach and start the original instance
 
----
+---Also check whether sshd or ssh service running - sudo systemctl status ssh
 
 ### 🧠 Real-Life Causes I’ve Faced:
 - Team used a wrong key pair name
