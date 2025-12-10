@@ -51,6 +51,8 @@ Line 4
 ```
 
 ---
+# to modify file
+sed -i '1d;$d' file.txt
 
 ### 🧠 Bonus Tip:
 If you want to **save the result to a new file**:
