@@ -7,7 +7,7 @@
 #    Automate it via a daily cron job
 #########################
 
-# Directory where logs are stored
+# Directory where logs are stored-Define variables
 LOG_DIR="/var/log/myapp"
 LOG_FILE="/var/log/myapp/log_rotation.log"
 
