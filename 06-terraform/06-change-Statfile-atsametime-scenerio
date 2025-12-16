@@ -1,0 +1,64 @@
+# Concurrent Terraform Apply Scenario
+When two DevOps engineers run terraform apply simultaneously on the same Terraform state file, here's what happens:
+
+The Problem: Race Condition
+Without proper locking, both apply operations can:
+
+1.Read the same state file simultaneously
+2.Make conflicting changes to infrastructure
+3.Overwrite each other's modifications
+Result in inconsistent infrastructure state and potential resource duplication or deletion
+
+# How Terraform Protects Against This
+Terraform uses state locking to prevent concurrent operations:
+
+Lock Acquisition: When terraform apply starts, it creates a lock on the state file, preventing other operations from accessing it until the lock is released.
+
+## Concurrent Apply Timeline with Diagram
+
+```
+Timeline of Operations:
+
+Time 1: Engineer A starts apply
+┌─────────────────────────────────────────┐
+│ Engineer A: terraform apply             │
+│ Action: Acquires LOCK on state file     │
+│ Status: ✓ Lock acquired                 │
+└─────────────────────────────────────────┘
+
+Time 2: Engineer B starts apply (while A is still running)
+┌─────────────────────────────────────────┐
+│ Engineer B: terraform apply             │
+│ Action: Requests lock on state file     │
+│ Status: ⏳ WAITING (blocked)            │
+└─────────────────────────────────────────┘
+
+Time 3: Engineer A completes apply
+┌─────────────────────────────────────────┐
+│ Engineer A: Releases LOCK               │
+│ Status: ✓ Completed, lock released     │
+└─────────────────────────────────────────┘
+
+Time 4: Engineer B acquires lock
+┌─────────────────────────────────────────┐
+│ Engineer B: terraform apply             │
+│ Action: Acquires LOCK                   │
+│ Status: ✓ Lock acquired                 │
+│ Result: Proceeds with apply             │
+└─────────────────────────────────────────┘
+```
+
+**Scenario:** Both engineers modify the same EC2 instance count:
+- Engineer A: increases instances from 2 → 4
+- Engineer B: increases instances from 2 → 3
+
+With locking: A completes first (4 instances), then B applies (3 instances) sequentially.
+Without locking: Potential data corruption and unpredictable final state.
+
+Example Scenario
+Key Takeaways
+✅ Local state: File-based locking prevents conflicts
+✅ Remote state (S3, Terraform Cloud): Built-in locking mechanisms
+⚠️ No locking configured: Concurrent applies = data corruption risk
+Best Practice: Always use remote state with locking enabled in team environments!
+
