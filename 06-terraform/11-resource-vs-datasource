@@ -1,0 +1,62 @@
+🔹 Resource
+
+Definition: A resource in Terraform is something that Terraform creates, manages, or modifies.
+Purpose: Used to provision infrastructure—like creating an AWS EC2 instance, an Azure VM, or a Google Cloud bucket.
+Lifecycle: Terraform tracks the lifecycle of resources (create, update, delete).
+Example:
+resource "aws_instance" "web" {
+  ami           = "ami-0c55b159cbfafe1f0"  
+  instance_type = "t2.micro"
+}  
+
+🔹 Data Source
+
+Definition: A data source is used to fetch information from existing infrastructure that is not managed by Terraform or is managed elsewhere.
+Purpose: Useful for reading data (like an existing VPC, AMI, or security group) to use in your Terraform configuration.
+Lifecycle: Terraform does not manage the lifecycle of data sources—it only reads them.
+
+✅ Step-by-Step Example
+1. Use a Data Source to Fetch the Latest AMI
+
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical (Ubuntu) owner ID
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+}
+
+2. Use the Data Source in a Resource
+
+
+resource "aws_instance" "web" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "UbuntuServer"
+  }
+}
+
+🔍 Explanation
+
+data "aws_ami" "ubuntu": This block queries AWS for the most recent Ubuntu AMI that matches the filters.
+data.aws_ami.ubuntu.id: This references the ID of the AMI returned by the data source.
+aws_instance "web": This resource uses the AMI ID from the data source to launch a new EC2 instance.
+
+🛠️ Why Use Data Sources?
+
+Dynamic Configuration: Avoid hardcoding values that change frequently.
+Reusability: Use existing infrastructure components (like VPCs, subnets, security groups).
+Modularity: Makes your Terraform code more flexible and maintainable.
