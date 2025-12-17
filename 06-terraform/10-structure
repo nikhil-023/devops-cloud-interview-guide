@@ -1,0 +1,111 @@
+🧭 Terraform Project Structure
+A typical Terraform project has the following structure:
+terraform-project/
+│
+├── main.tf          # Main configuration (providers, resources)
+├── variables.tf     # Input variables
+├── outputs.tf       # Output values
+├── terraform.tfvars # Variable values (optional)
+└── versions.tf      # Terraform and provider version constraints
+
+
+🌐 AWS Terraform Template
+
+versions.tf
+terraform {
+    required_version = ">= 1.5.0"  
+    required_providers {
+            aws = {
+                    source  = "hashicorp/aws" 
+                    version = "~> 5.0"    
+                } 
+    }
+}
+
+main.tf
+Terraformprovider "aws" {
+    region = var.aws_region
+}
+# Example resource (can be replaced with any AWS resource)
+resource "aws_s3_bucket" "example" {
+    bucket = var.bucket_name  
+    acl    = "private"
+}
+
+variables.tf
+variable "aws_region" {
+    description = "AWS region to deploy resources"  
+    type        = string  
+    default     = "us-east-1"
+}
+variable "bucket_name" {
+    description = "Name of the S3 bucket"  
+    type        = string
+}
+
+terraform.tfvars
+Terraformbucket_name = "my-unique-bucket-name-123"
+
+outputs.tf
+output "bucket_id" {
+    value = aws_s3_bucket.example.id
+}
+
+
+☁️ Azure Terraform Template
+
+versions.tf
+terraform {
+    required_version = ">= 1.5.0"  
+    required_providers {
+        azurerm = {
+            source  = "hashicorp/azurerm"      
+            version = "~> 3.0"    
+        }  
+    }
+}
+provider "azurerm" {
+    features {}
+}
+
+main.tf
+resource "azurerm_resource_group" "example" {
+    name     = var.resource_group_name   
+    location = var.location
+}
+
+variables.tf
+variable "resource_group_name" {
+    description = "Name of the resource group"  
+    type        = string
+}
+variable "location" {
+    description = "Azure region"  
+    type        = string 
+    default     = "East US"
+}
+
+terraform.tfvars
+
+outputs.tf
+output "resource_group_id" {
+      value = azurerm_resource_group.example.id
+}      
+
+
+🚀 Terraform Workflow Steps
+
+Initialize Terraform:
+terraform init
+
+Validate Configuration:
+terraform validate
+
+Preview Changes:
+terraform plan
+
+Apply Changes:
+terraform apply
+
+Destroy Resources (optional):
+terraform destroy
