@@ -10,7 +10,7 @@ This tests your conceptual understanding of how Kubernetes is structured — inc
 A Kubernetes cluster consists of a **Control Plane** (API Server, Scheduler, Controller Manager, etcd) and multiple **Worker Nodes** (Kubelet, Kube Proxy, Container Runtime). The control plane manages the cluster state, while the worker nodes run the actual workloads (pods).
 
 ---
-
+![alt text](image.png)
 ### Detailed explanation of the answer for readers’ understanding
 
 A Kubernetes cluster is made up of:
@@ -74,3 +74,5 @@ Worker nodes are where actual application workloads (pods) are deployed.
 6. `kube-proxy` and `service` route traffic to the pod
 
 ---
+
+Follow this article to have in-depth knowledge - https://devopscube.com/kubernetes-architecture-explained/
