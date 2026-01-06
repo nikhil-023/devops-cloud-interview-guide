@@ -1,0 +1,45 @@
+# Terraform State File Storage: Git vs Remote Storage
+
+## ❌ DON'T Store State File in Git
+
+### Risks:
+1. **Security Exposure** - State files contain sensitive data (passwords, API keys, database credentials)
+2. **Version Control Bloat** - State files are large and change frequently
+3. **Merge Conflicts** - Multiple team members applying changes causes conflicts
+4. **Accidental Commits** - Easy to commit sensitive information to repository
+5. **No Locking** - Git doesn't prevent concurrent state modifications (race conditions)
+6. **Audit Trail Issues** - Difficult to track who made infrastructure changes
+
+## ✅ DO Use Remote State Storage
+
+### Recommended Options:
+
+**AWS S3 (with DynamoDB for locking)**
+- Centralized state management
+- Built-in encryption at rest
+- Versioning and MFA delete protection
+- Cost-effective for most teams
+
+**Azure Blob Storage**
+- Integrated with Azure resources
+- Role-based access control (RBAC)
+- Immutable storage options
+- Automatic backup capabilities
+
+**Terraform Cloud/Enterprise**
+- Full-featured state management
+- Built-in locking and versioning
+- Team collaboration features
+- Run history and audit logs
+
+**HashiCorp Consul**
+- Distributed state storage
+- High availability
+- Real-time updates
+- Enterprise features
+
+**Google Cloud Storage (GCS)**
+- Native GCP integration
+- Consistent encryption
+- Uniform bucket-level access
+- State locking support

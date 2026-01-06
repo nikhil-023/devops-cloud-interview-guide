@@ -60,5 +60,4 @@ Key Takeaways
 ✅ Local state: File-based locking prevents conflicts
 ✅ Remote state (S3, Terraform Cloud): Built-in locking mechanisms
 ⚠️ No locking configured: Concurrent applies = data corruption risk
-Best Practice: Always use remote state with locking enabled in team environments!
-
+Best Practice: Always use remote state with locking enabled in team environments
