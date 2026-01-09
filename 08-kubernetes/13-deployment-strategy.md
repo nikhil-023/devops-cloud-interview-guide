@@ -95,3 +95,7 @@ Downsides: resource-heavy, more infra complexity.
 ### Key takeaway  
 
 > "We follow a **Rolling Update** strategy for general use, and **Canary deployments** for critical services. We choose deployment patterns based on service criticality, risk profile, and observability tooling."
+
+### Important link
+
+[Kubernetes Deployment Strategies](https://www.geeksforgeeks.org/devops/kubernetes-deployment-strategies-1/)
