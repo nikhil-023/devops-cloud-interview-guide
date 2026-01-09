@@ -92,3 +92,7 @@ helm rollback my-app 2
 ### Key takeaway  
 
 > "Our rollback strategy relies on GitOps principles — reverting Git changes triggers clean, trackable rollbacks. For high-risk deployments, we combine this with automated checks and canary monitoring to catch regressions early."
+
+### Note:What is Gitops
+GitOps is an emerging technology that is basically referred to as the ideal set of practices that empowers developers to perform the specific tasks which fall under the category of IT operation. GitOps is useful to describe, observe and declare on the basis of continuation including everything but is not limited to the case of Continuous Integration (CI).
+It upholds the principle that Git is the one and only source of truth. All the changes to the desired state are traceable. It also serves as an operating model for developing and delivering Kubernetes-based infrastructure and applications. It empowers developers to take an operation and ship it in its own way. Whereas, GitOps can manage the whole system to be managed declaratively by using convergence and without the support of Kubernetes. 
