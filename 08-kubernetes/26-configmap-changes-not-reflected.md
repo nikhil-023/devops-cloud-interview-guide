@@ -4,6 +4,9 @@
 This scenario tests your understanding of how ConfigMaps work when mounted as volumes, and what conditions affect the propagation of updates.
 
 ---
+### what is configmap
+A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
+A ConfigMap allows you to decouple environment-specific configuration from your container images, so that your applications are easily portable.
 
 ### Answer  
 If the ConfigMap is mounted as a **volume**, Kubernetes does reflect changes, but only inside the container **after a short delay** (default: every 1–2 minutes). However, if your application reads the config **only once at startup**, changes won't be picked up unless the pod is restarted.
@@ -85,3 +88,5 @@ annotations:
 ### Key takeaway
 
 > When mounting ConfigMaps as volumes, changes are synced to the file system — but your app must re-read the files to reflect them. If it doesn’t, restart the pod or redeploy the workload.
+
+
