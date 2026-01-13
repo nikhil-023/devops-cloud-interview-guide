@@ -1,8 +1,8 @@
-### Scheduling Pods on Kubernetes Master Nodes
+# Scheduling Pods on Kubernetes Master Nodes
 
 By default, Kubernetes prevents scheduling pods on master nodes to ensure the stability and security of the control plane. However, in specific scenarios like testing environments or resource-constrained setups, you may want to enable pod scheduling on master nodes.
 
-# Removing Taints to Enable Scheduling
+##  Removing Taints to Enable Scheduling
 Kubernetes uses taints to restrict pods from being scheduled on master nodes. The default taint applied to master nodes is:
 node-role.kubernetes.io/master:NoSchedule
 
@@ -13,7 +13,7 @@ For all master nodes, run:
 kubectl taint nodes --all node-role.kubernetes.io/master-
 The - at the end of the command removes the taint, making the master node available for scheduling pods.
 
-# Testing Pod Scheduling
+## Testing Pod Scheduling
 
 After removing the taint, you can test scheduling by deploying a pod or workload. For example:
 
